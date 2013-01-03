@@ -1,6 +1,8 @@
 ApocalypseZombie
 ================
 
+Attention, ne fonctionne qu'avec bukkit à partir de la version 1.4.6-R0.3
+
 Plugin pour Bukkit, simule l'apocalypse!
 
 Pour télécharger: https://www.dropbox.com/sh/uepbchmw9bmb78m/iExaihfp4T/ApocalypseZombie
