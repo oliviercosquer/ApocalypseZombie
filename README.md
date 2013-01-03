@@ -3,6 +3,8 @@ ApocalypseZombie
 
 Plugin pour Bukkit, simule l'apocalypse!
 
+Pour télécharger: https://www.dropbox.com/sh/uepbchmw9bmb78m/iExaihfp4T/ApocalypseZombie
+
 Reprise du code de GabiGabo et Exter62 : https://github.com/Docteur-G/P4E-ApocalypseZombie/
 
 Topic du forum bukkit.fr: http://www.bukkit.fr/index.php?threads/zombie-survival.4953/
