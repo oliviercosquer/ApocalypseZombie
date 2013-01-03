@@ -52,7 +52,7 @@ public class AZServerListener implements Listener {
         ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2147483647, 2));
 
         //Setting parameters from configuration file
-        ent.setHealth(4);
+        ent.setHealth(this.plugin.config.getZombieHealth());
 
 
     }
