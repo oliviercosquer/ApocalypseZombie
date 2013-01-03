@@ -1,0 +1,5 @@
+ZombieDamage: 20
+ZombieHealth: 6
+ZombieItemDrop: 257
+SpawnFrenquency: 50
+SpawnLimit: 100
