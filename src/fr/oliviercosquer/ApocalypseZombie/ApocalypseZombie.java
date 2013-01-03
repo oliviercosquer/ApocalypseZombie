@@ -1,5 +1,7 @@
 package fr.oliviercosquer.ApocalypseZombie;
 
+import java.lang.reflect.Method;
+import net.minecraft.server.v1_4_6.EntityTypes;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -20,7 +22,8 @@ public class ApocalypseZombie extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        this.killCreature();
+        this.config.loadConfiguration();
+        this.killCreature();        
     }
 
     @Override
@@ -37,6 +40,7 @@ public class ApocalypseZombie extends JavaPlugin {
         this.saveDefaultConfig();
         this.config.loadConfiguration();
         this.killCreature();
+        
     }
 
     private void killCreature() {
@@ -45,7 +49,8 @@ public class ApocalypseZombie extends JavaPlugin {
             for (Entity ent : w.getEntities()) {
                 if (ent.getType() != EntityType.PLAYER && ent.getType() != EntityType.ZOMBIE) {
                     w.spawnEntity(ent.getLocation(), EntityType.ZOMBIE);
-                    //Destroy the old entity            
+                    
+                    //Destroy the old entity                      
                     ent.remove();
                 }
             }
@@ -58,6 +63,7 @@ public class ApocalypseZombie extends JavaPlugin {
                     //Changing zombie parameters
                     ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2147483647, 2));
                     //Setting parameters from configuration file
+                    ent.setMaxHealth(this.config.getZombieHealth());
                     ent.setHealth(this.config.getZombieHealth());
                 }
             }

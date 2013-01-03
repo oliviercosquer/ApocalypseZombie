@@ -1,5 +1,10 @@
-ZombieDamage: 20
-ZombieHealth: 6
-ZombieItemDrop: 257
+ZombieDamage: 5
+ZombieHealth: 4
+ZombieSpeed: 2
+AllowCustomDrop: true
+CustomDropRate: 25
+ItemDrop:
+  id: 6
+  damage: 2
 SpawnFrenquency: 50
 SpawnLimit: 100

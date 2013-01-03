@@ -1,8 +1,6 @@
 package fr.oliviercosquer.ApocalypseZombie;
 
-import fr.oliviercosquer.ApocalypseZombie.ApocalypseZombie;
-import org.bukkit.ChatColor;
-import org.bukkit.EntityEffect;
+import java.util.Random;
 import org.bukkit.World;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -12,12 +10,14 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class AZServerListener implements Listener {
 
     public static ApocalypseZombie plugin;
+    private Random dropRate = new Random();
 
     public AZServerListener(ApocalypseZombie instance) {
         plugin = instance;
@@ -34,6 +34,7 @@ public class AZServerListener implements Listener {
 
             //Spawn a new zombie at the ent location
             world.spawnEntity(ent.getLocation(), EntityType.ZOMBIE);
+                        
             //Destroy the old entity            
             ent.remove();
         }
@@ -52,7 +53,9 @@ public class AZServerListener implements Listener {
         ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2147483647, 2));
 
         //Setting parameters from configuration file
+        ent.setMaxHealth(this.plugin.config.getZombieHealth());
         ent.setHealth(this.plugin.config.getZombieHealth());
+        
 
 
     }
@@ -76,5 +79,19 @@ public class AZServerListener implements Listener {
         if (event.getDamager().getType() == EntityType.ZOMBIE) {
             event.setDamage(this.plugin.config.getZombieDamage());
         }
+    }
+    
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onEntityDeathEvent(EntityDeathEvent event){
+        if(this.plugin.config.isAllowCustomDrop()){
+            //Delete all the drop
+            event.getDrops().clear();
+            
+            //Drop rate
+            if(this.dropRate.nextInt(100) < this.plugin.config.getDropRate()){
+                //Add the drop item to the dropList
+                event.getDrops().add(this.plugin.config.getZombieItemDrop());
+            }
+        }        
     }
 }
