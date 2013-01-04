@@ -1,5 +1,5 @@
 ZombieDamage: 5
-ZombieHealth: 4
+ZombieHealth: 16
 ZombieSpeed: 2
 AllowCustomDrop: true
 CustomDropRate: 25
