@@ -17,6 +17,7 @@ public class AZConfiguration {
 
     private ApocalypseZombie plugin;
     private int maxZombieSpawn;
+    private int spawnFrenquency;
     private int zombieDamage;
     private int zombieHealth;
     public int zombieSpeed;
@@ -46,6 +47,7 @@ public class AZConfiguration {
         this.allowCustomDrop = config.getBoolean("AllowCustomDrop");
         this.dropRate = config.getInt("CustomDropRate");        
         this.zombieSpeed = config.getInt("ZombieSpeed");
+        this.spawnFrenquency = config.getInt("SpawnFrenquency");
         
         //Retrieve all the drop item
         for(String key : config.getConfigurationSection("ItemDrop").getKeys(false)){

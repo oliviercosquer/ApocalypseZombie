@@ -24,7 +24,7 @@ public class ApocalypseZombie extends JavaPlugin {
     public void onLoad() {
         this.config.loadConfiguration();
         this.killCreature();
-        this.setSpawnLimit();
+        this.setSpawnLimitAndFequency();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ApocalypseZombie extends JavaPlugin {
         this.saveDefaultConfig();
         this.config.loadConfiguration();
         this.killCreature();    
-        this.setSpawnLimit();
+        this.setSpawnLimitAndFequency();
     }
 
     private void killCreature() {
@@ -71,10 +71,12 @@ public class ApocalypseZombie extends JavaPlugin {
         }
     }
     
-    private void setSpawnLimit(){
+    private void setSpawnLimitAndFequency(){
         for(World world : this.getServer().getWorlds()){
             world.setAnimalSpawnLimit(this.config.getMaxZombieSpawn());
             world.setMonsterSpawnLimit(this.config.getMaxZombieSpawn());
+            world.setTicksPerAnimalSpawns(this.config.getSpawnFrequency());
+            world.setTicksPerMonsterSpawns(this.config.getSpawnFrequency());
         }
     }
 }
