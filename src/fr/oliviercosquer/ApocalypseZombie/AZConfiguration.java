@@ -4,6 +4,7 @@
  */
 package fr.oliviercosquer.ApocalypseZombie;
 
+import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 public class AZConfiguration {
 
     private ApocalypseZombie plugin;
+    private int maxZombieSpawn;
     private int zombieDamage;
     private int zombieHealth;
     public int zombieSpeed;
@@ -23,9 +25,11 @@ public class AZConfiguration {
     private int spawnLimit;
     private int dropRate;
     private boolean allowCustomDrop;
+    private ArrayList<AZItemDrop> dropItemList;
 
     public AZConfiguration(ApocalypseZombie zaPlugin) {
         this.plugin = zaPlugin;
+        this.dropItemList = new ArrayList<AZItemDrop>();
     }
 
     public void loadConfiguration() {
@@ -33,15 +37,23 @@ public class AZConfiguration {
         FileConfiguration config = this.plugin.getConfig();
 
         //Read the keys
+        this.maxZombieSpawn = config.getInt("MaxZombieSpawn");
         this.zombieDamage = config.getInt("ZombieDamage");
         this.zombieHealth = config.getInt("ZombieHealth");
         this.zombieItemDrop = new ItemStack(Material.getMaterial(config.getInt("ZombieItemDrop")), 1);
         this.spawnFrequency = config.getInt("SpawnFrenquency");
         this.spawnLimit = config.getInt("SpawnLimit");
         this.allowCustomDrop = config.getBoolean("AllowCustomDrop");
-        this.dropRate = config.getInt("CustomDropRate");
-        this.zombieItemDrop = new ItemStack(config.getInt("ItemDrop.id"),1,(short)config.getInt("ItemDrop.damage"));
+        this.dropRate = config.getInt("CustomDropRate");        
         this.zombieSpeed = config.getInt("ZombieSpeed");
+        
+        //Retrieve all the drop item
+        for(String key : config.getConfigurationSection("ItemDrop").getKeys(false)){
+            ItemStack tmpItem = new ItemStack(config.getInt("ItemDrop."+key+".id"),1,(short)config.getInt("ItemDrop."+key+".damaged"));
+            int dropRate = config.getInt("ItemDrop."+key+".dropRate");
+            
+            this.dropItemList.add(new AZItemDrop(tmpItem,dropRate));
+        }
         
         if(this.dropRate > 100)
             this.dropRate = 100;
@@ -77,6 +89,14 @@ public class AZConfiguration {
 
     public int getZombieSpeed() {
         return zombieSpeed;
+    }
+
+    public ArrayList<AZItemDrop> getDropItemList() {
+        return dropItemList;
+    }
+
+    public int getMaxZombieSpawn() {
+        return maxZombieSpawn;
     }
     
     
