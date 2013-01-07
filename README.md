@@ -13,7 +13,17 @@ Topic du forum bukkit.fr: http://www.bukkit.fr/index.php?threads/zombie-survival
 
 Changelog:
 
+V0.3.5:
+-------
+- Est maintenant paramêtrable pour les zombies:
+    - la vie max
+    - la vitesse
+    - activer ou désactiver le drop d'item
+    - des items dropables avec taux de drop
+    - le nombre max de zombies sur la map
+
 V0.2.0:
+-------
 - les zombies ne prennent pas feu et spawn sous le soleil, ils sont plus rapides
 - les zombies ne peuvent pas attraper d'objets
 - les seules créatures qui peuvent spawn sont les zombies
