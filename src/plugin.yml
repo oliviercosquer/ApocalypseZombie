@@ -1,7 +1,29 @@
 author: Olivier Cosquer
-description: Play-4-Elements - Bukkit France - ApocalypseZombie
+description: Déclenche l'apocalypse des zombies sur votre serveur!
 name: ApocalypseZombie
-version: 0.3.6
+version: 0.5.2
 main: fr.oliviercosquer.ApocalypseZombie.ApocalypseZombie
 load: STARTUP
-url: http://play-4-elements.fr
+website: http://www.olivier-cosquer.fr
+commands:
+  az:
+    description: Toutes les commandes de Apocalypse Zombie
+  apocalypseZombie.*:
+    description: Donne l'accès à toutes les commandes
+    permissions: apocalypseZombie.*
+  stats:
+    description: Affiche les statistiques d'un joueur
+    aliases: [sps]
+    permissions: apocalypseZombie.stats
+    usage: /az [PlayerName]
+  globalstats:
+    description: Affiche les statistiques gloables
+    aliases: [sgs]
+    permissions: apocalypseZombie.globalstats
+    usage: /az global
+  save:
+    description: Force la sauvegarde des donnees
+    aliases: [azs]
+    permissions: apocalypseZombie.save
+    usage: /az save
+    

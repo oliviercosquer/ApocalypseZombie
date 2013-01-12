@@ -2,6 +2,7 @@ MaxZombieSpawn: 70
 ZombieDamage: 5
 ZombieHealth: 16
 ZombieSpeed: 2
+FoodChange: 1
 AllowCustomDrop: true
 CustomDropRate: 25
 ItemDrop:

@@ -1,8 +1,12 @@
 package fr.oliviercosquer.ApocalypseZombie;
 
-import java.lang.reflect.Method;
-import net.minecraft.server.v1_4_6.EntityTypes;
+import fr.oliviercosquer.ApocalypseZombie.Bukkit.AZCommandExecutor;
+import fr.oliviercosquer.ApocalypseZombie.Bukkit.AZServerListener;
+import fr.oliviercosquer.ApocalypseZombie.Configuration.AZConfiguration;
+import fr.oliviercosquer.ApocalypseZombie.Stats.AZPlayerStats;
+import fr.oliviercosquer.ApocalypseZombie.Stats.AZStatsManager;
 import org.bukkit.World;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -13,19 +17,14 @@ import org.bukkit.potion.PotionEffectType;
 
 public class ApocalypseZombie extends JavaPlugin {
 
-    public final AZServerListener EntityListener = new AZServerListener(this);
-    protected AZLogger log;
     public static String name;
     public static String version;
     public static ApocalypseZombie plugin;
-    public AZConfiguration config = new AZConfiguration(this);
-
-    @Override
-    public void onLoad() {
-        this.config.loadConfiguration();
-        this.killCreature();
-        this.setSpawnLimitAndFequency();
-    }
+    
+    private AZServerListener EntityListener;
+    private AZCommandExecutor cmdExecutor;
+    private AZConfiguration azConfig;
+    private AZStatsManager statsManager;
 
     @Override
     public void onDisable() {
@@ -33,15 +32,24 @@ public class ApocalypseZombie extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        //Initialize object
+        this.EntityListener = new AZServerListener(this);
+        this.azConfig = new AZConfiguration(this);
+        this.statsManager = new AZStatsManager(this);        
+        this.cmdExecutor = new AZCommandExecutor(this);
+        
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(this.EntityListener, this);
-        this.log = new AZLogger(this);
 
-        //If config.yml doesn't exist, create it
+        //If azConfig.yml doesn't exist, create it
         this.saveDefaultConfig();
-        this.config.loadConfiguration();
+        this.azConfig.loadConfiguration();
         this.killCreature();    
         this.setSpawnLimitAndFequency();
+        
+        //Registering commands
+        this.getCommand("az").setExecutor(this.cmdExecutor);
+        
     }
 
     private void killCreature() {
@@ -64,8 +72,8 @@ public class ApocalypseZombie extends JavaPlugin {
                     //Changing zombie parameters
                     ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2147483647, 2));
                     //Setting parameters from configuration file
-                    ent.setMaxHealth(this.config.getZombieHealth());
-                    ent.setHealth(this.config.getZombieHealth());
+                    ent.setMaxHealth(this.azConfig.getZombieHealth());
+                    ent.setHealth(this.azConfig.getZombieHealth());
                 }
             }
         }
@@ -73,10 +81,20 @@ public class ApocalypseZombie extends JavaPlugin {
     
     private void setSpawnLimitAndFequency(){
         for(World world : this.getServer().getWorlds()){
-            world.setAnimalSpawnLimit(this.config.getMaxZombieSpawn());
-            world.setMonsterSpawnLimit(this.config.getMaxZombieSpawn());
-            world.setTicksPerAnimalSpawns(this.config.getSpawnFrequency());
-            world.setTicksPerMonsterSpawns(this.config.getSpawnFrequency());
+            world.setAnimalSpawnLimit(this.azConfig.getMaxZombieSpawn());
+            world.setMonsterSpawnLimit(this.azConfig.getMaxZombieSpawn());
+            world.setTicksPerAnimalSpawns(this.azConfig.getSpawnFrequency());
+            world.setTicksPerMonsterSpawns(this.azConfig.getSpawnFrequency());
         }
     }
+
+    public AZConfiguration getAzConfig() {
+        return azConfig;
+    }
+
+    public AZStatsManager getStatsManager() {
+        return statsManager;
+    }
+    
+    
 }
