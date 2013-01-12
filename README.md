@@ -13,6 +13,13 @@ Topic du forum bukkit.fr: http://www.bukkit.fr/index.php?threads/zombie-survival
 
 Changelog:
 
+V0.5.3
+------
+- Amélioration de l'organisation du code
+- Ajout du système de statistiques
+- Amélioration du système de spawn
+- Ajout d'une option pour activer ou désactiver le spawn des monstres passifs
+
 V0.3.5:
 -------
 - Est maintenant paramêtrable pour les zombies:
