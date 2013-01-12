@@ -1,7 +1,21 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+Copyright 2013 - Olivier Cosquer - http://www.olivier-cosquer.com
+
+ This file is part of ApocalypseZombie.
+
+    ApocalypseZombie is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ApocalypseZombie is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ApocalypseZombie.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package fr.oliviercosquer.ApocalypseZombie.Configuration;
 
 import fr.oliviercosquer.ApocalypseZombie.ApocalypseZombie;
@@ -19,6 +33,7 @@ public class AZConfiguration {
     
     //Configuration values
     private int maxZombieSpawn;
+    private int maxMonsterSpawn;
     private int spawnFrenquency;
     private int zombieDamage;
     private int zombieHealth;
@@ -26,9 +41,11 @@ public class AZConfiguration {
     private int spawnFrequency;
     private int spawnLimit;
     private int foodChange;
+    private boolean animalsCanSpawn;
     private int dropRate;
     private boolean allowCustomDrop;
     private ArrayList<AZItemDrop> dropItemList;
+    private long statsSaving;
 
     public AZConfiguration(ApocalypseZombie zaPlugin) {
         this.plugin = zaPlugin;
@@ -41,6 +58,7 @@ public class AZConfiguration {
 
         //Read the keys
         this.maxZombieSpawn = config.getInt("MaxZombieSpawn");
+        this.maxMonsterSpawn = config.getInt("MaxMonsterSpawn");
         this.zombieDamage = config.getInt("ZombieDamage");
         this.zombieHealth = config.getInt("ZombieHealth");
         this.spawnFrequency = config.getInt("SpawnFrenquency");
@@ -50,6 +68,8 @@ public class AZConfiguration {
         this.zombieSpeed = config.getInt("ZombieSpeed");
         this.spawnFrenquency = config.getInt("SpawnFrenquency");
         this.foodChange = config.getInt("FoodChange");
+        this.animalsCanSpawn = config.getBoolean("AnimalsCanSpawn");
+        this.statsSaving = config.getLong("StatsSaving") * 200;
 
         //Retrieve all the drop item
         for (String key : config.getConfigurationSection("ItemDrop").getKeys(false)) {
@@ -106,6 +126,18 @@ public class AZConfiguration {
 
     public int getSpawnFrenquency() {
         return spawnFrenquency;
+    }
+
+    public boolean isAnimalsCanSpawn() {
+        return animalsCanSpawn;
+    }
+
+    public int getMaxMonsterSpawn() {
+        return maxMonsterSpawn;
+    }
+
+    public long getStatsSaving() {
+        return statsSaving;
     }
     
     

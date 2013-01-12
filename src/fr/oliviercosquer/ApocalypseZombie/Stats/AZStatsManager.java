@@ -1,14 +1,27 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+Copyright 2013 - Olivier Cosquer - http://www.olivier-cosquer.com
+
+ This file is part of ApocalypseZombie.
+
+    ApocalypseZombie is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ApocalypseZombie is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ApocalypseZombie.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package fr.oliviercosquer.ApocalypseZombie.Stats;
 
 import fr.oliviercosquer.ApocalypseZombie.ApocalypseZombie;
 import fr.oliviercosquer.ApocalypseZombie.Configuration.AZConfiguration;
 import java.io.*;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +41,9 @@ public class AZStatsManager {
         this.plugin = plugin;
         
         this.playerList = new HashMap<String, AZPlayerStats>();
-
+    }
+    
+    public void init(){
         //Load Player stats data
         this.statsFile = new File(this.plugin.getDataFolder(), "playerStats");
 
@@ -39,8 +54,6 @@ public class AZStatsManager {
                 Logger.getLogger(AZConfiguration.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        this.loadStats();
     }
     
     public void loadStats(){        
@@ -119,7 +132,7 @@ public class AZStatsManager {
     }
     
     public String getGlobalStats(){
-        String msg = "=== Apoclypse Zombie ===+\n";
+        String msg = "=== Apocalypse Zombie ===+\n";
         int totalZKill = 0;
         int totalDeath = 0;
         

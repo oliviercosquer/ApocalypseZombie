@@ -1,8 +1,10 @@
 MaxZombieSpawn: 70
+MaxMonstersSpawn: 35
 ZombieDamage: 5
 ZombieHealth: 16
 ZombieSpeed: 2
 FoodChange: 1
+AnimalsCanSpawn: true
 AllowCustomDrop: true
 CustomDropRate: 25
 ItemDrop:
@@ -16,3 +18,4 @@ ItemDrop:
     dropRate: 1
 SpawnFrequency: 50
 SpawnLimit: 100
+StatsSaving: 10
